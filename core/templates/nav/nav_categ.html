@@ -1,0 +1,11 @@
+<div class="well col-lg-2">
+	<ul class="nav nav-list">
+        <center><li class="nav-header"><u>Catégories disponibles</u></li></center>
+
+        {% for categorie in categories %}
+			<li><a href="{% url "core_categories" categorie.id %}">{{ categorie.nom }}</a></li>
+		{% endfor %}
+    </ul>
+
+</div>
+

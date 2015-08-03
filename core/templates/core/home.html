@@ -1,0 +1,39 @@
+{% extends "core/layout.html" %}
+
+{% block body %}
+	<div class="container">
+		<div class="row">
+
+				{% include 'nav/nav_categ.html' %}
+
+			<section class="col-lg-10">
+				<!-- <div class="well col-lg-12"> -->
+				<div class="jumbotron">
+					<h1>Bienvenue sur le blog voici les dernières news !</h1>
+				</div>
+
+				{% for article in articles %}
+					<div class="well col-sm-4">
+						<h3>{{ article.titre }}</h3>
+						<p>{{ article.contenu|truncatewords_html:80 }}</p>
+						<p><a class="btn btn-primary" href="{% url "core.views.view_article" article.id %}">Lire la suite</a>
+					</div>
+				{% empty %}
+					<p>Aucun article.</p>
+				{% endfor %}
+
+				{% if is_paginated %}
+					<div class="pagination">
+						{% if page_obj.has_previous %}
+							<a href="?page={{ page_obj.previous_page_number }}">Précédente</a> —
+						{% endif %}
+						Page {{ page_obj.number }} sur {{ page_obj.paginator.num_pages }} 
+						{% if page_obj.has_next %}
+							— <a href="?page={{ page_obj.next_page_number }}">Suivante</a>
+						{% endif %}
+					</div>
+				{% endif %}
+			</section>
+		</div>
+	</div>
+{% endblock %}

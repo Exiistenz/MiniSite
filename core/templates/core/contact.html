@@ -1,0 +1,23 @@
+{% extends "core/layout.html" %}
+
+{% block body %}
+	<div class="container">
+		<div class="row">
+			<section class="col-lg-9">
+				<h1 class="col-lg-offset-5">Ajouter un nouveau contact</h1></br>
+
+				{% if sauvegarde %}
+					<p>Ce contact a bien été enregistré.</p>
+				{% endif %}
+
+				<div class="well col-lg-offset-3 col-lg-10"> 
+					<form method="post" enctype="multipart/form-data" action=".">
+						{% csrf_token %}
+						{{ form.as_p }}
+						<input type="submit"/>
+					</form>
+				</div>
+			</section>
+		</div>
+	</div>
+{% endblock %}
