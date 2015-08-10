@@ -1,12 +1,19 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
 from django.shortcuts import redirect
+from django.core.urlresolvers import reverse
 from datetime import datetime
 from django.shortcuts import render, get_object_or_404
+
 from core.models import Article, Categorie, Contact
 from core.forms import ContactForm
 from django.views.generic import TemplateView
 from django.views.generic import ListView
+
+from core.forms import ConnexionForm
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required  #@login_required before function
+
 
 #
 #
@@ -105,3 +112,30 @@ class ListContacts(ListView):
         context = super(ListContacts, self).get_context_data(**kwargs)
         context['contacts'] = Contact.objects.all()
         return context
+
+#
+#
+# Connexion
+#
+#
+def connect(request):
+    error = False
+
+    if request.method == "POST":
+        form = ConnexionForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data["username"]
+            password = form.cleaned_data["password"]
+            user = authenticate(username=username, password=password)
+            if user: 
+                login(request, user) 
+            else: 
+                error = True
+    else:
+        form = ConnexionForm()
+
+    return render(request, 'core/login.html', locals())
+
+def disconnect(request):
+    logout(request)
+    return redirect(reverse(login))

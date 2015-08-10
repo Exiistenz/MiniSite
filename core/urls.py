@@ -12,5 +12,8 @@ urlpatterns = patterns('core.views',
 	url(r'^contact/$', 'contact'),
 	url(r'^contacts/$', ListContacts.as_view(), name="core_contacts"),
 
+	url(r'^login$', 'connect', name='core_login'),
+	url(r'^logout$', 'disconnect', name='core_logout'),
+
 	url(r'^faq$', FAQView.as_view()),
 )

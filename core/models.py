@@ -1,5 +1,6 @@
 from django.db import models
 import core.models
+from django.contrib.auth.models import User
 
 class Article(models.Model):
     titre = models.CharField(max_length=100)
@@ -26,3 +27,14 @@ class Contact(models.Model):
     
     def __str__(self):
            return self.nom
+
+class UserProfil(models.Model):
+    user = models.OneToOneField(User)
+    adresse = models.CharField(max_length=255)
+    ville = models.CharField(max_length=100)
+    pays = models.CharField(max_length=100)
+    avatar = models.ImageField(null=True, blank=True, upload_to="avatars/")
+    signature = models.TextField(blank=True)
+
+    def __str__(self):
+        return "Profil de {0}".format(self.user.username)

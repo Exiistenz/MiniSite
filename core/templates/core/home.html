@@ -9,7 +9,11 @@
 			<section class="col-lg-10">
 				<!-- <div class="well col-lg-12"> -->
 				<div class="jumbotron">
-					<h1>Bienvenue sur le blog voici les dernières news !</h1>
+    				{% if user.is_authenticated %}
+						<h2>Bonjour et Bienvenue à vous user.username. Consulter nos news !</h1>
+					{% else %}
+						<h2>Bonjour, vous n'êtes pas connecté. <a href="{% url "core_login" %}">Se connecter</a></h1>
+					{% endif %}
 				</div>
 
 				{% for article in articles %}

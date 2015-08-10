@@ -1,11 +1,25 @@
 <div class="well col-lg-2">
 	<ul class="nav nav-list">
+		{% if user.is_authenticated %}
+			<center><li class="nav-header"><u>Mon compte</u></li></center>
+			<li><a href="#">Profile</a></li>
+			<li><a href="#">Modifier</a></li>
+			<li><a href="{% url "core_logout" %}">Déconnexion</a></li>
+		{% else %}
+			<center><li class="nav-header"><u>Connexion</u></li></center>
+			<li><a href="{% url "core_login" %}">Se connecter</a></li>
+			<li><a href="#">Inscription</a></li>
+		{% endif %}
+    </ul>
+</div>
+
+<div class="well col-lg-2">
+	<ul class="nav nav-list">
         <center><li class="nav-header"><u>Catégories disponibles</u></li></center>
 
         {% for categorie in categories %}
 			<li><a href="{% url "core_categories" categorie.id %}">{{ categorie.nom }}</a></li>
 		{% endfor %}
     </ul>
-
 </div>
 
